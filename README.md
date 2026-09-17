@@ -35,7 +35,6 @@ fastapi-practice/
 ├── data.py              # In-memory restaurant menu data
 ├── interface.py         # Pydantic response models
 ├── index.html            # Frontend menu
-├── index_old.html        # Older frontend version
 ├── pyproject.toml        # Project configuration and dependencies
 └── README.md             # Project documentation
 ```
