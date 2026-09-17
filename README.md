@@ -1,4 +1,4 @@
-"# Menu_Restaurant" 
+
 # Restaurant Menu API
 
 A simple **FastAPI practice project** that provides restaurant menu data through REST API endpoints.
