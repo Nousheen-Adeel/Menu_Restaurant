@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Menu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+  :root{
+    --counter: #1c1a17;
+    --paper: #f4efe1;
+    --ink: #221f1a;
+    --ink-soft: #5b564a;
+    --olive: #5c6b3f;
+    --olive-dark: #43502d;
+    --rust: #a4402c;
+    --mustard: #cf9d3c;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--counter);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(255,255,255,0.025), transparent 45%);
+    color:var(--paper);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .display{ font-family:'Bebas Neue', sans-serif; letter-spacing:0.02em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  /* ================= HERO ================= */
+  .hero{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:90px 24px 56px;
+    text-align:center;
+    position:relative;
+  }
+  .hero::before{
+    content:"🍕 🍝 🥗 🍔 🍰 🥤";
+    display:block;
+    font-size:22px;
+    opacity:0.5;
+    margin-bottom:22px;
+    letter-spacing:14px;
+  }
+  .hero .eyebrow{ font-size:13px; letter-spacing:0.2em; color:var(--mustard); margin-bottom:14px; }
+  .hero h1{
+    font-size:clamp(48px, 9vw, 86px);
+    line-height:0.95;
+    margin:0;
+    background:linear-gradient(180deg, #fbf7ec 0%, var(--mustard) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p.tagline{ font-size:17px; color:rgba(244,239,225,0.6); max-width:38ch; margin:18px auto 0; line-height:1.55; }
+
+  /* ================= CONTROLS ================= */
+  .controls{
+    max-width:960px;
+    margin:0 auto;
+    padding:18px 24px 30px;
+    position:sticky;
+    top:0;
+    z-index:5;
+    background:linear-gradient(var(--counter) 78%, transparent);
+  }
+  .search-wrap{ margin-bottom:16px; }
+  input[type="text"]{
+    width:100%;
+    font-family:'Work Sans', sans-serif;
+    font-size:15px;
+    padding:14px 18px;
+    border:1px solid rgba(244,239,225,0.18);
+    border-radius:30px;
+    background:rgba(244,239,225,0.06);
+    color:var(--paper);
+  }
+  input[type="text"]::placeholder{ color:rgba(244,239,225,0.4); }
+  input[type="text"]:focus{ outline:none; border-color:var(--mustard); background:rgba(244,239,225,0.1); }
+
+  .cats{ display:flex; flex-wrap:wrap; gap:8px; }
+  button.pill{
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    padding:8px 16px;
+    border-radius:20px;
+    border:1px solid rgba(244,239,225,0.18);
+    background:transparent;
+    color:rgba(244,239,225,0.75);
+    cursor:pointer;
+  }
+  button.pill.active{ background:var(--olive); border-color:var(--olive); color:var(--paper); }
+  button.pill:hover{ border-color:var(--mustard); }
+
+  /* ================= MENU ================= */
+  main{ max-width:960px; margin:0 auto; padding:10px 24px 100px; }
+
+  .cat-block{ margin-bottom:52px; }
+  .cat-block h2{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:30px;
+    letter-spacing:0.02em;
+    border-bottom:2px solid var(--olive);
+    display:inline-block;
+    padding-bottom:4px;
+    margin-bottom:22px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:16px;
+  }
+  .dish{
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:10px;
+    padding:20px 20px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    position:relative;
+    box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    transition:transform 0.22s ease, box-shadow 0.22s ease;
+    animation:rise 0.5s ease-out both;
+  }
+  .dish:hover{
+    transform:translateY(-5px);
+    box-shadow:0 16px 30px rgba(0,0,0,0.32);
+  }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .dish.unavailable{ opacity:0.5; }
+  .dish .top-row{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .dish h3{ margin:0; font-size:17px; display:flex; align-items:center; gap:8px; }
+  .dish .price{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--paper);
+    background:var(--olive);
+    padding:3px 10px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .dish p{ margin:0; font-size:13.5px; color:var(--ink-soft); line-height:1.55; }
+  .sold-out{
+    position:absolute;
+    top:14px; right:14px;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    color:var(--rust);
+    background:rgba(164,64,44,0.12);
+    padding:3px 9px;
+    border-radius:20px;
+  }
+
+  .empty-state{
+    color:rgba(244,239,225,0.5);
+    font-size:14.5px;
+    padding:60px 4px;
+    text-align:center;
+  }
+
+  footer{
+    text-align:center;
+    padding:44px 24px 60px;
+    color:rgba(244,239,225,0.4);
+    font-size:13px;
+    border-top:1px dashed rgba(244,239,225,0.15);
+  }
+  footer .display{ font-size:20px; color:rgba(244,239,225,0.7); margin-bottom:8px; }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="eyebrow display">WELCOME</div>
+    <h1>Our Menu</h1>
+    <p class="tagline">Fresh flavors, made to order — pizza, pasta, salads, burgers, dessert, and drinks.</p>
+  </div>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <input type="text" id="searchBox" placeholder="Search dishes, e.g. chicken, spicy, cake..." />
+    </div>
+    <div class="cats" id="catButtons"></div>
+  </div>
+
+  <main id="menuMain"></main>
+
+  <footer>
+    <div class="display">Thank you for visiting</div>
+    Enjoy your meal.
+  </footer>
+
+<script>
+  const MENU = [
+    { id: 1, name: "Margherita Pizza", description: "Classic pizza with tomato sauce, mozzarella, and fresh basil", category: "Pizza", price: 850, available: true },
+    { id: 2, name: "Pepperoni Pizza", description: "Loaded with pepperoni and melted mozzarella cheese", category: "Pizza", price: 950, available: true },
+    { id: 3, name: "BBQ Chicken Pizza", description: "Smoky BBQ sauce, grilled chicken, onions, and cheese", category: "Pizza", price: 1150, available: false },
+    { id: 4, name: "Chicken Alfredo Pasta", description: "Creamy alfredo sauce with grilled chicken and fettuccine", category: "Pasta", price: 1050, available: true },
+    { id: 5, name: "Spaghetti Bolognese", description: "Spaghetti tossed in a rich meat and tomato sauce", category: "Pasta", price: 900, available: true },
+    { id: 6, name: "Penne Arrabbiata", description: "Spicy tomato sauce with garlic, chili flakes, and penne pasta", category: "Pasta", price: 850, available: true },
+    { id: 7, name: "Caesar Salad", description: "Romaine lettuce, parmesan, croutons, and caesar dressing", category: "Salad", price: 550, available: true },
+    { id: 8, name: "Greek Salad", description: "Cucumbers, tomatoes, olives, feta cheese, and olive oil dressing", category: "Salad", price: 550, available: true },
+    { id: 9, name: "Garden Salad", description: "Fresh mixed greens, carrots, tomatoes, and a light vinaigrette", category: "Salad", price: 450, available: false },
+    { id: 10, name: "Beef Burger", description: "Grilled beef patty with lettuce, tomato, cheese, and fries", category: "Burger", price: 750, available: false },
+    { id: 11, name: "Chicken Burger", description: "Crispy chicken fillet with lettuce, mayo, and pickles", category: "Burger", price: 700, available: true },
+    { id: 12, name: "Veggie Burger", description: "Plant-based patty with lettuce, tomato, and vegan mayo", category: "Burger", price: 650, available: true },
+    { id: 13, name: "Chocolate Lava Cake", description: "Warm chocolate cake with a molten center, served with ice cream", category: "Dessert", price: 450, available: true },
+    { id: 14, name: "New York Cheesecake", description: "Rich and creamy cheesecake with a graham cracker crust", category: "Dessert", price: 500, available: true },
+    { id: 15, name: "Tiramisu", description: "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone", category: "Dessert", price: 550, available: false },
+    { id: 16, name: "Iced Lemon Tea", description: "Refreshing chilled tea with a hint of lemon", category: "Beverage", price: 200, available: true },
+    { id: 17, name: "Fresh Orange Juice", description: "Freshly squeezed orange juice, no added sugar", category: "Beverage", price: 250, available: true },
+    { id: 18, name: "Cappuccino", description: "Espresso with steamed milk and a light foam top", category: "Beverage", price: 300, available: true },
+  ];
+
+  const CAT_ICONS = { Pizza: "🍕", Pasta: "🍝", Salad: "🥗", Burger: "🍔", Dessert: "🍰", Beverage: "🥤" };
+  const CATEGORIES = ["Pizza", "Pasta", "Salad", "Burger", "Dessert", "Beverage"];
+  let activeCategory = null;
+
+  const $ = (id) => document.getElementById(id);
+
+  function clearSearchAndRender(){
+    $("searchBox").value = "";
+    render();
+  }
+
+  function renderCatButtons(){
+    const wrap = $("catButtons");
+    wrap.innerHTML = "";
+    const allBtn = document.createElement("button");
+    allBtn.className = "pill active";
+    allBtn.textContent = "All";
+    allBtn.onclick = () => { activeCategory = null; setActivePill(allBtn); clearSearchAndRender(); };
+    wrap.appendChild(allBtn);
+
+    CATEGORIES.forEach(cat => {
+      const b = document.createElement("button");
+      b.className = "pill";
+      b.textContent = `${CAT_ICONS[cat]} ${cat}`;
+      b.onclick = () => { activeCategory = cat; setActivePill(b); clearSearchAndRender(); };
+      wrap.appendChild(b);
+    });
+  }
+
+  function setActivePill(btn){
+    document.querySelectorAll("#catButtons .pill").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  }
+
+  function dishCard(item){
+    const div = document.createElement("div");
+    div.className = "dish" + (item.available ? "" : " unavailable");
+    div.innerHTML = `
+      ${!item.available ? '<span class="sold-out">SOLD OUT</span>' : ""}
+      <div class="top-row">
+        <h3>${CAT_ICONS[item.category] || ""} ${item.name}</h3>
+        <span class="price mono">Rs. ${item.price}</span>
+      </div>
+      <p>${item.description}</p>
+    `;
+    return div;
+  }
+
+  function render(){
+    const q = $("searchBox").value.trim().toLowerCase();
+    const main = $("menuMain");
+    main.innerHTML = "";
+
+    const categoriesToShow = activeCategory ? [activeCategory] : CATEGORIES;
+    let anyResults = false;
+
+    categoriesToShow.forEach(cat => {
+      const items = MENU.filter(i =>
+        i.category === cat &&
+        (!q || i.name.toLowerCase().includes(q) || i.description.toLowerCase().includes(q) || i.category.toLowerCase().includes(q))
+      );
+      if (!items.length) return;
+      anyResults = true;
+
+      const block = document.createElement("div");
+      block.className = "cat-block";
+      block.innerHTML = `<h2>${CAT_ICONS[cat] || ""} ${cat}</h2>`;
+      const grid = document.createElement("div");
+      grid.className = "grid";
+      items.forEach(item => grid.appendChild(dishCard(item)));
+      block.appendChild(grid);
+      main.appendChild(block);
+    });
+
+    if (!anyResults){
+      const activeLabel = activeCategory ? `${CAT_ICONS[activeCategory]} ${activeCategory}` : "any category";
+      main.innerHTML = `<div class="empty-state">No dishes match your search in ${activeLabel}.</div>`;
+    }
+  }
+
+  $("searchBox").addEventListener("input", render);
+  $("searchBox").addEventListener("keyup", render);
+  renderCatButtons();
+  render();
+</script>
+
+</body>
+</html>
