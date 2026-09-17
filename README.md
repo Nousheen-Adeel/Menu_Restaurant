@@ -36,7 +36,6 @@ fastapi-practice/
 ├── interface.py         # Pydantic response models
 ├── index.html            # Frontend menu
 ├── index_old.html        # Older frontend version
-├── copy_code.py          # Utility to collect project code
 ├── pyproject.toml        # Project configuration and dependencies
 └── README.md             # Project documentation
 ```
